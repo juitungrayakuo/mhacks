@@ -1,169 +1,158 @@
-
 <!DOCTYPE html>
 <html>
-<head>
-<title> Study Now </title>
-		
+  <head>
+    <title>Study Now</title>
 
-		<style type="text/css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+    <!-- Adding Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <!-- Latest compiled and minified JavaScript -->
+    <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- Awesome Font -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <script type="text/javascript" src="prompt.js"></script>
+    <!-- Google Font  -->
+    <link href="http://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <center>
+      <!-- Parse -->
+       <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.5.min.js"> </script>
+      <div class="top_section container">
+        <form>
+          <div class="camera">
+            <div class="camera_icon">
+              <p>
+              	<span class= "fa fa-camera"> </span>
+           <!--      <i class="fa fa-camera" /> -->
+              </p>
+            </div>
+            <input type="file" accept="image/*" capture="camera" />
+          </div>
+          <div class="form-group">
+            <input id="enterName" type="text" class="form-control" placeholder="Enter Name" />
+            <span id="displayName" style="display: none;">Name Here</span>
+          </div>
+          <div class="form-group1">
+            <input id="enterLocation" class="form-control" placeholder="Enter Location" />
+          </div>
+        </form>
+      </div>
+      <div class="description">
+        <input name="Location" id="descrString" type="text" class="form-control" placeholder="Description" />
+      </div>
+      <div class="items">
+        <div class="chair">
+          <img width="25" height="30" src="images/Chair.png" />
+          <div class="chair_text">
+            <input name="qChairs" id="aChairs" style="border:none; box-shadow: none;" type="text" class="form-control" placeholder="#?" />
+          </div>
+        </div>
+        <div class="table">
+          <img width="30" height="30" src="images/Table.png" />
+          <div class="table_text">
+            <input name="qTables" id="aTables" style="border:none; box-shadow: none;" type="text" class="form-control" placeholder="#?" />
+          </div>
+        </div>
+        <div class="outlet">
+          <img width="30" height="30" src="images/Outlet.png" />
+          <div class="outlet_text">
+            <input name="qOutlets" id="aOutlets" style="border:none; box-shadow: none;" type="text" class="form-control" placeholder="#?" />
+          </div>
+        </div>
+              <script src="http://maps.google.com/maps/api/js?sensor=false">debugger;</script>
+
+     
+   
+      <p id="demo" />
+      </div>
+      <div class="section group">
+        <div class="col span_2_of_2" />
+      </div>
+      <div id="map" />
+      <div class="post_button">
+        <button width="300" height="400" type="submit" onclick="create_newloc()" class="btn btn-success">Post Study Spot</button>
+      </div>
+
+
+
+   <div id="mapholder" />
+
+   <!-- JS  -->
+   <script type="text/javascript">
+
+   	Parse.initialize("I64ZcYApHwIZ16xBWWkjF5J8jrFSbNG7Nn5pRWlD", "FHrV7K6okKiPUULrFxHSJtuTAV5Nllbn1zQOLBv8");
+   	function grab_location(){
+     // Grabbing data from Parse from StudySpace
+		var test = Parse.Object.extend ("StudySpace"); // extend: creates a class 
+		
+		var query = new Parse.Query(test);
+		query.find({ 
+			success: function(coor){ // success: callback func from find
+
+					var numTables;
+					var numChairs; 
+					var numOutlets;
+					var latitude; 
+					var longitude;
+							for (var key in coor) {
+								if (coor.hasOwnProperty(key)) {
+									numTables = coor[key].attributes.numTables;
+
+									numChairs= coor[key].attributes.numChairs;
+
+									numOutlets = coor[key].attributes.numOutlets;
+
+									latitude = coor[key]._serverData.coor.latitude;
+
+									longitude = coor[key]._serverData.coor.longitude;
+									alert(key);
+					}
+				}
+					
+			},
+				error: function(error) {
+					alert("something went wrong"); 
+				}
+
+			});
+		}
+	function create_newloc(){
+		var d = new Date(); 
+		var uniqueID = d.getFullYear() + d.getMonth() + d.getDate() + d.getHours() + d.getMinutes() + d.getSeconds() + d.getMilliseconds();
+		var coordinates = "42.212, -83.353";
+		var descrString = document.getElementById("descrString");
+		var chairs= document.getElementById("aChairs"); 
+		var table = document.getElementById("aTables");
+		var outlets = document.getElementById("aOutlets");
 	
-		</style>
-
-		<!-- Parse -->
-		 <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.5.min.js"></script>
-
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-
-		<!-- Adding Bootstrap -->
-		<link rel="stylesheet" type="text/css" href="style.css">
-
-		<!-- Latest compiled and minified JavaScript -->
-		<script type = "text/javascript" src="jquery-1.11.3.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		var new_location =  //key: value
+			{"objectID": uniqueID , "coor": coordinates, "descri": descrString, "numChairs": chairs, "numOutlets": outlets, "numTables": table}
+		Parse.Object.saveAll(new_location); 
 		
+	// 	save_button.find({
+	// 		success: function(list){
 
-		<!-- Awesome Font -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	// 			// each text -> own id  = save all
+	// 		},
+	// 		error: function(save_button, error){
 
-		<script type = "text/javascript" src="prompt.js"> </script>
-		<!-- Google Font  -->
-		<link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
-
-
-
-</head>
-<body>
-
-
-<center>
-
-	<!-- Parse -->
-
-	<script type="text/javascript">
-	    Parse.initialize("I64ZcYApHwIZ16xBWWkjF5J8jrFSbNG7Nn5pRWlD", "FHrV7K6okKiPUULrFxHSJtuTAV5Nllbn1zQOLBv8");
-	</script>
-
-	<div class="top_section container">
-    	<form>
-    		<div class = "camera">
-    			<div class = "camera_icon">
-    				<p><i class="fa fa-camera"></i>
-    			</div>
-    			<input type="file" accept="image/*" capture="camera">
-        	</div>
-        	<div class="form-group">
-            	<input id="enterName" type="text" class="form-control" placeholder="Enter Name"/>
-            	<span id="displayName" style="display: none;">Name Here </span>
-       		</div>
-        	<div class="form-group1">
-           		<input id="enterLocation" class="form-control" placeholder="Enter Location"/>
-        	</div>
-   		</form>
-	</div>
-
-	<div class ="description">
-		<input id="description" type="text" class="form-control" placeholder="Description"/>
-	</div>
-	<div class ="items">
-		<div class ="chair"> 
-			<img width="25" height="30" src="images\Chair.png">
-			<div class ="chair_text">
-				<input id="chair" style = "border:none; box-shadow: none;"
-                          type="text" class="form-control" placeholder="#?"/>
-			</div>
-		</div>
-		<div class ="table">
-			<img width="30" height="30"src="images\Table.png">
-			<div class ="table_text">
-				<input id="table" style = "border:none; box-shadow: none;"
-                          type="text" class="form-control" placeholder="#?"/>
-			</div>
-		</div>
-		<div class ="outlet">
-			<img width="30" height="30"src="images\Outlet.png">
-			<div class ="outlet_text">
-				<input id="outlet" style = "border:none; box-shadow: none;"
-                           type="text" class="form-control" placeholder="#?"/>
-			</div>
-		</div>
-	</div>
-	<div class="section group">
-		<div class="col span_2_of_2">
-	</div>
-	</div>
-
-<div id="map"> </div>
-		<div class ="post_button">
-	        <button width="300" height="400" type="submit" class="btn btn-success">Post Study Spot</button>
-	    </div>
+	// 		}
+	// 	}
+	// });
+	}
     
-		<!-- Google API -->
-		 <script async defer src="https://maps.google.com/maps/api/js?callback=initialize">
-  		</script>
-	<p>
-
-
-</body>
-
-<!doctype html>
-<head>
-  <meta charset="utf-8">
-
-  <title>My Parse App</title>
-  <meta name="description" content="studyNow App">
-  <meta name="viewport" content="width=device-width">
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/styles.css">
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.5.min.js"></script>
-</head>
-
-<body>
-  
-  <div id="main">
-    <h1>Welcome to studyNow!</h1>
-
-    <p>Tell us where you're studying in the textbox below! </p>
-
-
-    <div style="display:none" class="error">
-      Looks like there was a problem saving the test object. Make sure you've set your application ID and javascript key correctly in the call to <code>Parse.initialize</code> in this file.
-    </div>
-
-    
-  </div>
-<div id="mapholder"></div>
-  
-
-  <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
-
-  <input name="Location" type="textbox" placeholder="Description?" id='descrString'></input>
-  <input name="qChairs" type ="textbox" placeholder="Number of chairs?" id='aChairs'></input>
-  <input name="qTables" type ="textbox" placeholder="Number of tables?" id='aTables'></input>
-  <input name="qOutlets" type ="textbox" placeholder="Number of outlets?" id='aOutlets'></input>
-  <input onclick="getLocation()" type="button" value="Submit" style="width:10%"></input>
-
-<p id="demo"></p>
-
-<script type="text/javascript">
-    Parse.initialize("I64ZcYApHwIZ16xBWWkjF5J8jrFSbNG7Nn5pRWlD", "FHrV7K6okKiPUULrFxHSJtuTAV5Nllbn1zQOLBv8");
-</script>
-
-
-
-    
-    <script>
-
-var x = document.getElementById("demo");
-function getLocation() {
+	<!-- Google Maps API -->
+   
+   function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError);
     } else { 
+    	var x = document.getElementById("demo");
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
 }
@@ -171,8 +160,8 @@ function getLocation() {
 function showPosition(position) {
     lat = position.coords.latitude;
     lon = position.coords.longitude;
-    latlon = new google.maps.LatLng(lat, lon)
-    mapholder = document.getElementById('mapholder')
+    latlon = new google.maps.LatLng(lat, lon);
+    mapholder = document.getElementById('mapholder');
     mapholder.style.height = '250px';
     mapholder.style.width = '500px';
 
@@ -181,11 +170,12 @@ function showPosition(position) {
     mapTypeId:google.maps.MapTypeId.ROADMAP,
     mapTypeControl:false,
     navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
-    }
-    
+    };
+
     var map = new google.maps.Map(document.getElementById("mapholder"), myOptions);
     var marker = new google.maps.Marker({position:latlon,map:map,title:"You are here!"});
-
+}
+  /*  
     function addLocation(lat, lon){
       var StudySpace = Parse.Object.extend("StudySpace");
       var studySpace = new StudySpace();      
@@ -196,50 +186,28 @@ function showPosition(position) {
 
 
 
-   /* <script>
-var TestObject = Parse.Object.extend("TestObject");
-var testObject = new TestObject();
-testObject.save({foo: "bar"}).then(function(object) {
-  alert("yay! it worked");
-});
 */
-    //addLocation(lat, lon);
-
-//}
 
 
-
-function showError(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            x.innerHTML = "User denied the request for Geolocation."
-            break;
-        case error.POSITION_UNAVAILABLE:
-            x.innerHTML = "Location information is unavailable."
-            break;
-        case error.TIMEOUT:
-            x.innerHTML = "The request to get user location timed out."
-            break;
-        case error.UNKNOWN_ERROR:
-            x.innerHTML = "An unknown error occurred."
-            break;
-    }
-}
-        
-
-    
+// function showError(error) {
+//     switch(error.code) {
+//         case error.PERMISSION_DENIED:
+//             x.innerHTML = "User denied the request for Geolocation.";
+//             break;
+//         case error.POSITION_UNAVAILABLE:
+//             x.innerHTML = "Location information is unavailable.";
+//             break;
+//         case error.TIMEOUT:
+//             x.innerHTML = "The request to get user location timed out.";
+//             break;
+//         case error.UNKNOWN_ERROR:
+//             x.innerHTML = "An unknown error occurred.";
+//             break;
+//     }
   
-    
+// }
+ 
 </script>
-
-    
-    
-    
-    
-
-
-</body>
-
-
+</center>
+  </body>
 </html>
-

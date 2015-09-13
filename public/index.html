@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,6 +110,51 @@
 
 </body>
 
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+
+  <title>My Parse App</title>
+  <meta name="description" content="studyNow App">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.5.min.js"></script>
+</head>
+
+<body>
+  
+  <div id="main">
+    <h1>Welcome to studyNow!</h1>
+
+    <p>Tell us where you're studying in the textbox below! </p>
+
+
+    <div style="display:none" class="error">
+      Looks like there was a problem saving the test object. Make sure you've set your application ID and javascript key correctly in the call to <code>Parse.initialize</code> in this file.
+    </div>
+
+    
+  </div>
+<div id="mapholder"></div>
+  
+
+  <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+  <input name="Location" type="textbox" placeholder="Description?" id='descrString'></input>
+  <input name="qChairs" type ="textbox" placeholder="Number of chairs?" id='aChairs'></input>
+  <input name="qTables" type ="textbox" placeholder="Number of tables?" id='aTables'></input>
+  <input name="qOutlets" type ="textbox" placeholder="Number of outlets?" id='aOutlets'></input>
+  <input onclick="getLocation()" type="button" value="Submit" style="width:10%"></input>
+
+<p id="demo"></p>
+
+<script type="text/javascript">
+    Parse.initialize("I64ZcYApHwIZ16xBWWkjF5J8jrFSbNG7Nn5pRWlD", "FHrV7K6okKiPUULrFxHSJtuTAV5Nllbn1zQOLBv8");
+</script>
+
+
 
     
     <script>
@@ -148,7 +194,7 @@ function showPosition(position) {
   alert("yay! it worked");
 });
 
-    
+
 
    /* <script>
 var TestObject = Parse.Object.extend("TestObject");
@@ -157,10 +203,11 @@ testObject.save({foo: "bar"}).then(function(object) {
   alert("yay! it worked");
 });
 */
-
     //addLocation(lat, lon);
 
 //}
+
+
 
 function showError(error) {
     switch(error.code) {
@@ -185,4 +232,14 @@ function showError(error) {
     
 </script>
 
+    
+    
+    
+    
+
+
+</body>
+
+
 </html>
+
